@@ -46,4 +46,8 @@ dependencies {
     api "com.squareup.retrofit2:adapter-rxjava:$adapter_rxjava_version"
     //布局
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    //--------------------------------------
+
+
+
 }
