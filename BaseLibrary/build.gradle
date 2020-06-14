@@ -38,7 +38,12 @@ dependencies {
     //配置rx_kotlin 和 rx_android
     api "io.reactivex:rxkotlin:$rx_koltin"
     api "io.reactivex:rxandroid:$rx_android"
-
+    //-------配置retrofit ------------        ext.okhttp_version= '3.10.0'
+    api "com.squareup.okhttp3:okhttp:$okhttp_version"
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$converter_gson_version"//retrofit2的Json转换器(默认用Gson)
+    api "com.squareup.okhttp3:logging-interceptor:$logging_intercepto_version"//okhttp提供的请求日志拦截器
+    api "com.squareup.retrofit2:adapter-rxjava:$adapter_rxjava_version"
     //布局
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
