@@ -1,0 +1,2 @@
+include ':App', ':BaseLibrary', ':Provider', ':UserCenter'
+rootProject.name='KotlinApplication'
