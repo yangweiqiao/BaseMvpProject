@@ -8,5 +8,5 @@ import rx.Observable
 
 open interface ApiService {
     @POST("regist")
-    fun regist(@Body user: User): Observable<BaseResp<String>>
+    fun regist(@Body user: User): Observable<BaseResp<User>>
 }

@@ -1,25 +1,21 @@
 package com.example.usercenter.service.impl
 
-import com.example.baselibrary.data.net.RetrofitFactory
-import com.example.usercenter.data.api.ApiService
+import android.util.Log
+import com.example.baselibrary.ext.convert
+import com.example.baselibrary.ext.convertBoolean
 import com.example.usercenter.data.api.User
+import com.example.usercenter.data.repository.UserRepository
 import com.example.usercenter.service.UserService
 import rx.Observable
+import javax.inject.Inject
 
-class UserServiceImpl : UserService {
+class UserServiceImpl @Inject constructor() : UserService {
+    @Inject
+    lateinit var repository: UserRepository
+
     override fun register(username: String, password: String): Observable<Boolean> {
 
-        val user = User("1111", "1111")
-
-        val hello = RetrofitFactory.instance.create(ApiService::class.java).regist(user)
-
-        return hello.flatMap { t ->
-            if (t!!.status == 200) {
-                Observable.just(true)
-            } else {
-                Observable.just(false)
-            }
-        }
+        return repository.regist().convertBoolean()
 
     }
 }

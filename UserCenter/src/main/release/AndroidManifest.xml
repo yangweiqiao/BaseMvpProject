@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.usercenter" />
+    package="com.example.usercenter">
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application>
+        <activity android:name=".ui.activity.UserActivity" />
+    </application>
+
+</manifest>

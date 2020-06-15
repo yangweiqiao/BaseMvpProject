@@ -3,6 +3,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+//Arouter 的添加kapt
+
+
+
 
 android {
     compileSdkVersion 29
@@ -14,6 +19,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        javaCompileOptions {
+
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -21,10 +34,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
 api project(path: ':Provider')
+    api project(path: ':UserCenter')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    //Arouter
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version" //注意版本号
 }

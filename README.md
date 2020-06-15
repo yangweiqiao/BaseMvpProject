@@ -1,17 +1,26 @@
-## 基础项目创建
-1. 创建项目 App
-2. 创建lib base 和provider
-3. 添加依赖关系 App->provider ->base
-4. base中创建包  common 通用包 data 数据包,其中包括net网络请求 protocol 实体类包 ; ext: kotlin扩展方法包
-      presenter包:mvp层基类,包括presenter和view层的包; rx:支持rx相关;
-      ui包:activity和fragment的基类; widgets:ui自定义组件
-5. provider中创建包: common;    event:作为中间实践传递;router:模块之间的相互通信和接口调用;
-6. App中创建包:common  ui
 
-## 搭建模块化
-### 模块化
-1.  Application和library
-     application是作为应用程序启动 :
+@[TOC](Android kotlin下的多模块化MVP架构)
+## 基础项目创建
+
+> 1. 创建项目 App
+> 2. 创建lib base 和provider 
+> 3. 添加依赖关系 App->provider ->base
+> 4. base中创建包  common 通用包 data 数据包,其中包括net网络请求 protocol 实体类包 ; ext: kotlin扩展方法包 
+>       presenter包:mvp层基类,包括presenter和view层的包; rx:支持rx相关;
+>       ui包:activity和fragment的基类; widgets:ui自定义组件 
+> 5. provider中创建包: common;    event:作为中间实践传递;router:模块之间的相互通信和接口调用;
+> 6. App中创建包:common  ui
+
+  ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200615171324346.png)![在这里插入图片描述](https://img-blog.csdnimg.cn/20200615171339805.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1lBTkdXRUlRSUFP,size_16,color_FFFFFF,t_70)
+
+依赖关系 
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200615171847962.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1lBTkdXRUlRSUFP,size_16,color_FFFFFF,t_70)
+
+
+## 搭建模块化 
+### 模块化 
+1.  Application和library 
+     application是作为应用程序启动 : 
 ```kotlin
 apply plugin:'com.android.application' ; 
 ```
@@ -19,7 +28,7 @@ apply plugin:'com.android.application' ;
 ```kotlin
 apply plugin:'com.android.library'
 ```
-2. 方便测试单模块,可以动态的配置
+2. 方便测试单模块,可以动态的配置 
 ```kotlin
 		  if(xxx.toBoolean()){
 		   apply plugin:'com.android.application'
@@ -29,8 +38,8 @@ apply plugin:'com.android.library'
   ```
    对应两套 AndroidManifest,一套是作为application时候使用,一套是作为lib时候使用;
    作为application时候使用,是测试的时候,创建一下放在debug目录下,另外一套放在release下;
-   在build.gradle中动态的切换
-
+   在build.gradle中动态的切换 
+   	 
 
 ```kotlin
  sourceSets {
@@ -43,29 +52,29 @@ apply plugin:'com.android.library'
         }
     }
 ```
-动态加载模块类型
-   使用UserCenter测试动态加载模块
+动态加载模块类型 
+   使用UserCenter测试动态加载模块  
 
 ### 基础模块封装
-~~视图层框架 : butterKnife
-在kotlin多模块下的工程中不能使用,报错 unable to find resource ID 错误原因: module中资源id与主工程资源ID不一致~~
-1. android-extensions
+~~视图层框架 : butterKnife 
+在kotlin多模块下的工程中不能使用,报错 unable to find resource ID 错误原因: module中资源id与主工程资源ID不一致~~  
+1. android-extensions 
+  
 
-
-> 视图绑定,可直接使用xml中id操作该控件
+> 视图绑定,可直接使用xml中id操作该控件 
 > 插件级别,无需引用第三方库
 > 无需定义变量,极大减少代码
-> 适用于activity fragment adapter 和自定义view
+> 适用于activity fragment adapter 和自定义view 
 > apply plugin: 'kotlin-android-extensions'
 使用 : 第一步 添加插件 第二步: 直接操作xml中的id
 
-2. anko  kotlin提供的一些方便操作的库
+2. anko  kotlin提供的一些方便操作的库 
+ 
 
-
-> Anko Commons 工具库 ,例如 toast intent跳转
-> Anko layouts 布局
-> Anko SQLLite 数据库
-> Anko coroutines 协程
+> Anko Commons 工具库 ,例如 toast intent跳转 
+> Anko layouts 布局 
+> Anko SQLLite 数据库 
+> Anko coroutines 协程  
 
 ```kotlin
  implementation "org.jetbrains.anko:anko:$anko_version"
@@ -73,11 +82,11 @@ apply plugin:'com.android.library'
 [github](https://github.com/Kotlin/anko)
 
 
-### 主流框架配置和集成
+### 主流框架配置和集成   
 
-#### MVP配置
+#### MVP配置 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/202006141513516.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1lBTkdXRUlRSUFP,size_16,color_FFFFFF,t_70)
-定义baseView
+定义baseView 
 ```kotlin
 interface BaseView {
 
@@ -96,7 +105,7 @@ open class BasePresenter<T : BaseView> {
 }
 ```
 
-定义baseMvpActivity来承载p和v ,持有basepresenter的应用 泛型实现 ,实现BaseView
+定义baseMvpActivity来承载p和v ,持有basepresenter的应用 泛型实现 ,实现BaseView 
 
 ```kotlin
 open class BaseMvpActivity<T: BasePresenter<*>>:BaseActivity(),BaseView {
@@ -114,7 +123,7 @@ open class BaseMvpActivity<T: BasePresenter<*>>:BaseActivity(),BaseView {
 lateinit var mPresenter:T
 }
 ```
-在其他的activity中改造下,测试mvp
+在其他的activity中改造下,测试mvp 
 
 ```kotlin
 class MainActivity : BaseMvpActivity<MinePresenter>() ,MineView {
@@ -136,7 +145,7 @@ class MainActivity : BaseMvpActivity<MinePresenter>() ,MineView {
     }
 }
 ```
-对用的p和v
+对用的p和v 
 
 ```kotlin
 class MinePresenter : BasePresenter<MineView>() {
@@ -153,19 +162,19 @@ interface MineView:BaseView{
 }
 ```
 
-#### RxKotlin 和 RxAndroid 配置
+#### RxKotlin 和 RxAndroid 配置  
 ##### RxKotlin
 
-> RxKotlin  基于RxJava的扩展扩,以kotlin的风格提供大量的扩展方法
-> 响应式编程
+> RxKotlin  基于RxJava的扩展扩,以kotlin的风格提供大量的扩展方法 
+> 响应式编程 
 > 观察者模式
 > 引入依赖包` api "io.reactivex:rxkotlin:$rx_koltin" `
 > [github](https://github.com/ReactiveX/RxKotlin)
-##### RxAndroid
+##### RxAndroid 
 >  RxAndroid 基于rxjava,可以优雅的处理异步请求   更好的兼容android的特性,例如主线程,ui事件
 > 引入依赖包`  api "io.reactivex:rxandroid:$rx_android"`
 
-测试
+测试 
 1.创建service层
 
 ```kotlin
@@ -173,7 +182,7 @@ interface UserService {
     fun  register (username:String , password:String ): Observable<Boolean>
 }
 ```
-实现 service
+实现 service 
 
 ```kotlin
 class UserServiceImpl : UserService {
@@ -183,7 +192,7 @@ class UserServiceImpl : UserService {
 }
 ```
 
-在persenter层调用
+在persenter层调用 
 
 ```kotlin
  fun register() {
@@ -207,7 +216,7 @@ class UserServiceImpl : UserService {
     }
 ```
 
-Subscriber 改造  抽取基类,后续只需要实现这里的onNext方法
+Subscriber 改造  抽取基类,后续只需要实现这里的onNext方法 
 
 ```kotlin
 class BaseSubscriber<T> : Subscriber<T>() {
@@ -222,7 +231,7 @@ class BaseSubscriber<T> : Subscriber<T>() {
     }
 }
 ```
-使用扩展方法 精简 订阅监听
+使用扩展方法 精简 订阅监听 
 
 ```kotlin
 fun <T> Observable<T>.execute(baseSubscriber: BaseSubscriber<T>) {
@@ -231,7 +240,7 @@ fun <T> Observable<T>.execute(baseSubscriber: BaseSubscriber<T>) {
         .subscribe(baseSubscriber)
 }
 ```
-然后再使用的地方精简代码
+然后再使用的地方精简代码 
 
 ```kotlin
     userServiceImpl.register("", "")
@@ -241,3 +250,478 @@ fun <T> Observable<T>.execute(baseSubscriber: BaseSubscriber<T>) {
                 }
             })
 ```
+
+#### [Retrofit](https://square.github.io/retrofit/)集成 
+##### 集成
+```
+基于okhttp封装的网络库 ; 
+```
+集成 
+```
+     api 'com.squareup.okhttp3:okhttp:3.9.0'
+     api 'com.squareup.retrofit2:retrofit:2.3.0'
+     api 'com.squareup.retrofit2:converter-gson:2.3.0'//retrofit2的Json转换器(默认用Gson)
+     api 'com.squareup.okhttp3:logging-interceptor:3.9.0'//okhttp提供的请求日志拦截器
+     api 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+```
+
+创建RetrofitFactory ,单例模式 
+
+```kotlin
+class RetrofitFactory private constructor() {
+
+    companion object {
+        val instance: RetrofitFactory by lazy { RetrofitFactory() }
+    }
+
+    private val retrofit: Retrofit
+
+    init {
+        retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)  //主机地址
+            .addConverterFactory(GsonConverterFactory.create()) //数据转换
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .client(initClient())
+            .build()
+    }
+
+    //构建client
+    private fun initClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(initLogIntercept()) //日志拦截器
+            .addInterceptor(initHeaderIntercept()) //日志拦截器
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .build()
+    }
+
+    //请求头 拦截器
+    private fun initHeaderIntercept(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("Content-Type", "application/json")
+                .addHeader("charset", "utf-8")
+                .build()
+            chain.proceed(request)
+        }
+    }
+
+    //构建日志拦截器
+    private fun initLogIntercept(): Interceptor {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return httpLoggingInterceptor;
+    }
+
+    fun <T> create(service: Class<T>): T {
+        return retrofit.create(service)
+    }
+
+}
+```
+
+使用上面的retrofit进行请求测试 
+
+```kotlin
+interface ApiService {
+    @POST("regist")
+    fun regist(@Body user: User): Observable<BaseResp<String>>
+}
+```
+
+```kotlin
+    val user = User("1111", "1111")
+
+        val hello = RetrofitFactory.instance.create(ApiService::class.java).regist(user)
+
+        return hello.flatMap { t ->
+            if (t!!.status == 200) {
+                Observable.just(true)
+            } else {
+                Observable.just(false)
+            }
+        }
+```
+
+##### 优化
+
+#### [dagger2](https://www.imooc.com/article/22317)集成 
+
+```kotlin
+apply plugin: 'kotlin-kapt' //每一个使用的模块都要配置
+```
+
+```kotlin
+api 'com.google.dagger:dagger-android:2.21'
+kapt 'com.google.dagger:dagger-compiler:2.21' //kapt 每个使用的模块都要配置 
+```
+
+##### 依赖注入
+
+ 
+
+ 1. @Inject 
+
+> 标记在类的构造
+> 标注实例属性
+
+ 2. @Component 
+
+> 注入器,连接目标类和依赖实例的桥梁 ; 
+> 以@Component标注的类必须是接口或者是抽象类; 
+> Component依赖关系通过dependencies属性添加 ;
+> APP必须有一个Component来管理全局实例
+
+ 3. @Module  在不能使用inject直接标记构造函数的时候使用 
+
+>  接口不能实例化,只能通过实现类实例化 
+>  Module是一个工厂,创建类实例的方法
+>  Component通过modules属性添加多个module
+ 4. @Provides
+> 在Module 中,使用@Provides标注创建实例的方法 
+> 实例化流程    
+> >  Component搜索@Inject注解的属性 
+> >  Component查找Module中以@Provides注解的对应方法,创建实例 
+
+Inject和Module 
+1. Inject在标注构造函数时候使用 
+2. Module在不能标记构造函数的时候使用 
+3. Module的优先级高于Inject构造函数 
+4. 查找到实例对象,依次查看其参数实例化
+5. Module中存在@Provides创建实例的方法,就不用查找inject标注的构造函数,如果再Module中没有找到,就去找Inject构造函数
+ 
+
+```kotlin
+依赖注入
+         Module的优先级高于Inject构造函数
+        步骤1：查找Module中是否存在创建该类的方法。就是用 @Provides 标注的providesXXX的方法
+        步骤2：若存在创建类方法，查看该方法是否存在参数
+            步骤2.1：若存在参数，则按从**步骤1**开始依次初始化每个参数
+            步骤2.2：若不存在参数，则直接初始化该类实例，一次依赖注入到此结束
+        步骤3：若不存在创建类方法，则查找Inject注解的构造函数，
+                   看构造函数是否存在参数
+            步骤3.1：若存在参数，则从**步骤1**开始依次初始化每个参数
+            步骤3.2：若不存在参数，则直接初始化该类实例，一次依赖注入到此结束
+
+ 
+```
+
+```kotlin
+//使用Inject标注构造函数的类
+class ClassA @Inject constructor(){
+}
+
+class ClassB{
+//在B中可以直接@Inject标注实例属性 
+@Inject 
+lateinit var mClassA:ClassA
+
+}
+//使用Component连接起来A和B 
+
+```
+
+##### 作用域 
+@Scope 
+
+>  用处就是Component的组织
+    更好的管理Component之间的组织方式,不管是依赖方式还是包含方式,都有必要用自定义的Scope注解标注这些Component,这些注解最好不要一样,不一样是为了能更好的体现出
+    component之间的组织方式,还有编辑器检查依赖关系或者是包含关系的Component,若发现有Component没有用自定义的scope注解标注,就会报错
+    更好的管理component与module之间的匹配关系,编译器会检查Component管理的Modules,若发现Component的自定义的Scope注解与Modules中的标注创建类实例方法的注解不一样,就会报错 
+ 
+ @Scope和@Singleton
+
+ 
+   @Scope作用域
+
+>  主要用于component的组织方式  
+>  管理Component和Module之间的匹配的关系 
+>   提高可读性,见名知意
+
+          
+   @Singleton
+          
+ 
+
+> 并没有实现单例的能力 是Scope的一种默认实现
+>   ApplicationComponent单例是由代码控制实现
+
+ 自定义Scope
+ 
+
+> 以Component组织方式自定义Scope
+
+  
+     
+
+```kotlin
+ 			 @Scope
+           @Retention(RetentionPolicy.RUNTIME)
+           annotation class ActivityScope
+```
+
+>   没有作用域的component的不能依赖有作用域的component
+
+ 
+
+##### 限定符 @Qualifier 限定符
+
+> 解决依赖注入迷失(同一个接口有多个实现类,编译报错,分不清楚使用哪一个实现类)
+
+ @Named
+
+>    Qualifier的一种实现方式 ,以名称来区分使用哪种注解实现
+
+ 自定义Qualifier
+
+>    @Qualifier    @Retention(RetentionPolicy.RUNTIME)    annotation
+> class ActivityQualifier
+
+ 
+ 
+#### [RxLifecycle](https://github.com/trello/RxLifecycle)配置使用
+
+ 1. 解决Rx内存泄漏 
+ 2. 可以监听activity,fragment的生命周期,自动断开Rx绑定 
+ 3. 引入 
+ 
+
+```kotlin
+ api 'com.trello:rxlifecycle-components:1.0'
+ api 'com.trello:rxlifecycle-kotlin:1.0'
+```
+可能出现jsr305的问题 :
+解决方法：
+在build.gradle的 Android{ }里添加：
+
+```kotlin
+configurations.all {
+      resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+  }
+```
+
+ 1. 让BaseActivity继承RxAppCompatActivity
+
+```kotlin
+open class BaseActivity:RxAppCompatActivity()
+```
+
+ 2.  采用依赖注入的方式 ,最终的是要注入到Observable的扩展方法中 
+ 
+
+```kotlin
+fun <T> Observable<T>.execute(
+    baseSubscriber: BaseSubscriber<T>,
+    lifecycleProvider: LifecycleProvider<*>
+) {
+    this.observeOn(AndroidSchedulers.mainThread())
+    //最终要传递到这个地方
+        .compose(lifecycleProvider.bindToLifecycle())
+        .subscribeOn(Schedulers.io())
+        .subscribe(baseSubscriber)
+}
+```
+3. 这个方法是在P层调用的 
+
+```kotlin
+  serviceImpl.register("", "")
+  //调用扩展方法 , 通过参数将 lifecycleProvider传递过去 
+            .execute(object : BaseSubscriber<Boolean>() {
+                override fun onNext(t: Boolean) {
+                    println("shuju fanhui 111111111111111")
+                    mView.onResult(t)
+                }
+            } , lifecycleProvider)
+```
+
+4. 在BasePresenter中注入 ,因为所有的presenter都会用到 
+
+```kotlin
+open class BasePresenter<T : BaseView> {
+
+    lateinit var mView: T
+    @Inject
+    lateinit var lifecycleProvider: LifecycleProvider<*>
+}
+```
+5. 下面创建对应的Module,因为是第三方库,不能直接Inject标注进来  
+
+```kotlin
+@Module
+class LifecycleProviderModule(private  val lifecycleProvider: LifecycleProvider<*>) {
+
+    @Provides
+    @ActivityScope //使用activity的作用域 
+    fun providesLifecycleProvider( ):LifecycleProvider<*>{
+        return lifecycleProvider
+    }
+
+}
+```
+6. 在activity的Component中依赖引入 
+
+```kotlin
+@ActivityScope
+@Component(
+    modules = arrayOf(ActivityModule::class, LifecycleProviderModule::class), //引入LifecycleProviderModule
+    dependencies = arrayOf(AppComponent::class)
+)
+interface ActivityComponent {
+
+    fun activity(): Activity
+    fun context(): Context
+    fun lifecycleProvider(): LifecycleProvider<*> //同时暴露方法出去 
+}
+```
+7. 编译下,然后在BaseMvpActivity中修改
+
+```kotlin
+ activityComponent = DaggerActivityComponent
+            .builder()
+            .appComponent((application as BaseApplication).appComponent)
+            .activityModule(ActivityModule(this))
+            .lifecycleProviderModule(LifecycleProviderModule(this)) //这里添加了一行LifecycleProviderModule的引入,传递this是因为基类继承的是RxAppCompatActivity,它本身是实现了LifecycleProvider的接口,所有直接传递this
+            .build()
+```
+ 8. 这样就把LifecycleProvider依赖进来了,在BasePresenter那里可以使用@Inject来引入,所有的Presenter都可以直接使用,然后再传递到扩展方法中,这样就绑定完成了 
+
+#### 网络请求数据转换优化和扩展
+ 
+```kotlin
+/*
+   扩展数据转换
+*/
+fun <T> Observable<BaseResp<T>>.convert(): Observable<T> {
+    return this.flatMap(BaseFunc())
+}
+/*
+    扩展Boolean类型数据转换
+ */
+fun <T> Observable<BaseResp<T>>.convertBoolean(): Observable<Boolean> {
+    return this.flatMap(BaseFunBoolean())
+}
+
+```
+定义上面的BaseFunc 
+
+```kotlin
+class BaseFunc<T>:Func1<BaseResp<T>,Observable<T>>{
+    override fun call(t: BaseResp<T>): Observable<T> {
+        //这个地方flatmap转换 ,决定 ,绑定后最终执行哪个error方法还是next方法;
+        if (t.status  != 200){
+            return Observable.error(BaseException(t.status, t.msg ))
+        }
+
+        return Observable.just(t.data)
+    }
+}
+```
+定义出 BaseFunBoolean
+
+```kotlin
+class BaseFunBoolean<T> : Func1<BaseResp<T>, Observable<Boolean>> {
+
+    override fun call(t: BaseResp<T>): Observable<Boolean> {
+        if (t.status == 200) {
+            return Observable.just(true)
+        }
+        return Observable.error(BaseException(t.status, t.msg))
+    }
+}
+```
+在使用的地方  
+
+```kotlin
+//直接转换数据 
+repository.regist().convertBoolean()
+```
+
+
+ #### [ARouter](https://github.com/alibaba/ARouter) 集成 
+  1. 引入 
+  
+
+```kotlin
+//ARouter 在baseLib中引入包 
+    compile "com.alibaba:arouter-api:$arouter_api_version"
+```
+
+  在我们的模块中使用,首先要再gradle中配置 
+ 
+```kotlin 
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+   ...
+
+    defaultConfig {
+ javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        ...
+}
+}
+dependencies {
+   // compile 'com.alibaba:arouter-api:x.x.x' 在base中已经配置 不需要了
+   //apt注解框架的声明
+    kapt 'com.alibaba:arouter-compiler:$arouter_compiler_version' //注意版本号
+    ...
+}
+
+```
+简单的用法 
+
+定义路径 
+
+```kotlin
+object RouterPath {
+
+    object UserCenter {
+        const val PATH_REGIST = "/userCenter/regist"
+    }
+
+
+}
+```
+
+```kotlin
+在要访问的activity前面添加路径  这里我配置的是存放在一个固定的文件中 
+@Route(path = RouterPath.UserCenter.PATH_REGIST)
+class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView {
+
+ //   override fun injectComponent() {
+        //DaggerUserComponent.builder().activityComponent(activityComponent).uSerModule(USerModu//le()).build().inject(this)
+   //     mPresenter.mView = this
+
+  //  }
+ 
+```
+在需要访问的地方,可以调用
+
+```kotlin
+ ARouter.getInstance().build(RouterPath.UserCenter.PATH_REGIST).navigation()
+ //或者是带参数传递 
+ ARouter.getInstance().build(RouterPath.UserCenter.PATH_REGIST)//这个地方用withXXX()添加传递的参数 .navigation()
+
+```
+在接受的类中处理携带的参数 
+
+```kotlin
+ @Route(path = RouterPath.UserCenter.PATH_REGIST)
+class OrderConfirmActivity : BaseMvpActivity<OrderPresenter>(),OrderView {
+    @Autowired(name = ProviderConstant.KEY_ORDER_ID)
+    @JvmField
+    var mOrderId: Int = 0
+
+
+```
+不要忘了在Application中初始化 ARouter 
+
+```kotlin
+Arouter.init(this)
+```
+
+
+....................... .........................
