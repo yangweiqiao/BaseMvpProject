@@ -662,6 +662,7 @@ repository.regist().convertBoolean()
 
 
 #### [ARouter](https://github.com/alibaba/ARouter) 集成
+
 1. 引入
 
 
@@ -1089,9 +1090,8 @@ android {
 ....................... .........................
 
 
-
-
 更新扩展方法 :
+
 ```kotlin
 fun <T> Observable<T>.execute(
     mView: BaseView,
@@ -1117,3 +1117,4 @@ fun <T> Observable<T>.execute(
         })
 }
 ```
+

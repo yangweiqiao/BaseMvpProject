@@ -30,10 +30,11 @@ class UserPresenter @Inject constructor() : BasePresenter<UserView>() {
     }
 
     fun addUser(user: UserEntry) {
-        serviceImpl.addUser(user)
-            .forEach {
-                Log.e("数据库", it.toString())
-            }
+
+                mView.onResultDatabase( serviceImpl.addUser(user))
+//            .forEach {
+//                Log.e("数据库", it.toString())
+//            }
 
 
     }

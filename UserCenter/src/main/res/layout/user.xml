@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
-    android:id="@+id/mView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:text="用户中心"
-    ></TextView>
+
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/mView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="注册用户"/>
+
+    <Button
+        android:id="@+id/mViewDatabase"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="数据库插入操作"/>
 </LinearLayout>

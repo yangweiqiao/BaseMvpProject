@@ -5,4 +5,5 @@ import com.example.baselibrary.presenter.view.BaseView
 interface UserView:BaseView {
 
     fun onResult(b:Boolean)
+    fun onResultDatabase(it:List<Long>)
 }

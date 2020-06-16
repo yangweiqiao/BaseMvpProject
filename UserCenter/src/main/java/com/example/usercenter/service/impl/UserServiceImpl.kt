@@ -1,7 +1,7 @@
 package com.example.usercenter.service.impl
 
 import com.example.baselibrary.data.database.entry.UserEntry
-import com.example.baselibrary.data.database.repository.UserDaoRepositroy
+import com.example.baselibrary.data.database.repository.UserDaoRepository
 import com.example.baselibrary.ext.convertBoolean
 import com.example.usercenter.data.repository.UserRepository
 import com.example.usercenter.service.UserService
@@ -17,7 +17,7 @@ class UserServiceImpl @Inject constructor() : UserService {
     @Inject
     lateinit var repository: UserRepository
     @Inject
-    lateinit var userDaoRepositroy: UserDaoRepositroy
+    lateinit var userDaoRepositroy: UserDaoRepository
 
     override fun register(username: String, password: String): Observable<Boolean> {
 

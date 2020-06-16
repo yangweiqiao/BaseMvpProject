@@ -20,13 +20,7 @@ public class AppGlobals {
                 sApplication = (Application) Class.forName("android.app.ActivityThread")
                         .getMethod("currentApplication")
                         .invoke(null, (Object[]) null);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

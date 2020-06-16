@@ -17,6 +17,11 @@ import kotlin.random.Random
 
 @Route(path = RouterPath.UserCenter.PATH_REGIST)
 class UserActivity : BaseMvpActivity<UserPresenter>(), UserView {
+    override fun onResultDatabase(it: List<Long>) {
+        toast("操作数据库:" + it[0].toString())
+
+    }
+
     override fun initComponent() {
         DaggerUserComponent.builder()
             .activityComponent(activityComponent)
@@ -34,15 +39,18 @@ class UserActivity : BaseMvpActivity<UserPresenter>(), UserView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user)
-
-        mView.onClick {
-            mPresenter.register()
+        mViewDatabase.onClick {
             val user = UserEntry()
             user.firstName = "yang"
             user.lastName = "rr"
             user.age = 11
             user.id = Random.nextInt()
             mPresenter.addUser(user)
+
+        }
+        mView.onClick {
+            mPresenter.register()
+
 
 
         }
