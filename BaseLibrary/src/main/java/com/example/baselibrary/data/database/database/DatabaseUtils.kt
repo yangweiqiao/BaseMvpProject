@@ -20,6 +20,7 @@ object DatabaseUtils {
             "android_room_dev.db"
         )
             .allowMainThreadQueries()
+            .fallbackToDestructiveMigration() //数据库升级之后的异常回滚
             .setJournalMode(RoomDatabase.JournalMode.TRUNCATE) //日志打印模式
             // .addMigrations(MIGRATION_1_2, MIGRATION_2_3) //数据库升级时候使用
             .build();

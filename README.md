@@ -1087,3 +1087,33 @@ android {
 ```
 
 ....................... .........................
+
+
+
+
+更新扩展方法 :
+```kotlin
+fun <T> Observable<T>.execute(
+    mView: BaseView,
+    lifecycleProvider: LifecycleProvider<*>,
+    onSuccess: (data: T) -> Unit
+    , onFailed: (e: Throwable) -> Unit
+) {
+    this
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .compose(lifecycleProvider.bindToLifecycle())
+        .subscribe(object : Subscriber<T>() {
+            override fun onNext(t: T) {
+                onSuccess(t)
+            }
+
+            override fun onCompleted() {
+            }
+
+            override fun onError(e: Throwable?) {
+                mView.onError(e!!)
+            }
+        })
+}
+```
