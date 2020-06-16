@@ -2,6 +2,7 @@ package com.example.baselibrary.common
 
 import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.baselibrary.data.database.database.DatabaseUtils
 import com.example.baselibrary.injection.component.AppComponent
 import com.example.baselibrary.injection.component.DaggerAppComponent
 import com.example.baselibrary.injection.module.AppModule
@@ -17,7 +18,7 @@ class BaseApplication : Application() {
        // ARouter.openDebug()
         ARouter.init(this)
         initAppComponent()
-
+     DatabaseUtils.createDataBase()
     }
 
       lateinit var appComponent: AppComponent

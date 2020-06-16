@@ -9,11 +9,12 @@ import com.example.baselibrary.injection.module.ActivityModule
 import com.example.baselibrary.injection.module.LifecycleProviderModule
 import com.example.baselibrary.presenter.BasePresenter
 import com.example.baselibrary.presenter.view.BaseView
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
-    override fun onError() {
-
+    override fun onError(e: Throwable) {
+        toast(e.message!!)
     }
 
     override fun onShowLoading() {

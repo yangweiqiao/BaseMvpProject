@@ -4,6 +4,6 @@ interface BaseView {
 
     fun  onShowLoading()
     fun  onHideLoading()
-    fun  onError()
+    fun  onError(e:Throwable)
 
 }

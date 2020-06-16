@@ -15,6 +15,15 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+        //-----配置room数据库 json保存目录
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
     }
 
     buildTypes {
@@ -54,7 +63,12 @@ dependencies {
     // ----------------rxlifecycle------------------
     api "com.trello:rxlifecycle-components:$rx_lifecycle_version"
     api "com.trello:rxlifecycle-kotlin:$rx_lifecycle_version"
-  // --------------arouter_api----------
+    // --------------arouter_api----------
     api "com.alibaba:arouter-api:$arouter_api_version"
+
+    //----------room------
+    api "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+    api "androidx.room:room-rxjava2:2.2.5"
 
 }

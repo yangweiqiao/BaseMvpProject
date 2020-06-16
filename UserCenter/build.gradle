@@ -54,4 +54,6 @@ dependencies {
     api project(path: ":Provider")
     //Arouter
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version" //注意版本号
+   // annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    kapt "androidx.room:room-compiler:2.2.5"
 }
