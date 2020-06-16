@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application>
         <activity android:name=".ui.activity.UserActivity" />
+        <activity android:name=".ui.activity.PermissionActivity" />
     </application>
 
 </manifest>
