@@ -9,6 +9,7 @@ import com.elvishew.xlog.XLog
 import com.example.baselibrary.data.database.entry.UserEntry
 import com.example.baselibrary.log.YLogUtils
 import com.example.baselibrary.ui.activity.BaseMvpActivity
+import com.example.provider.event.Bus
 import com.example.provider.router.RouterPath
 import com.example.usercenter.R
 import com.example.usercenter.dagger.commponent.DaggerUserComponent
