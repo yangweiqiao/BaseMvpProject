@@ -19,9 +19,9 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
-                        "room.schemaLocation":"$projectDir/schemas".toString(),
-                        "room.incremental":"true",
-                        "room.expandProjection":"true"]
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
             }
         }
     }
@@ -32,7 +32,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    dataBinding{
+        enabled = true
+    }
 }
 
 dependencies {
@@ -43,12 +45,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    //配置anko 主要支持commons
+    //-----------配置anko 主要支持commons-------
     api "org.jetbrains.anko:anko:$anko_version"
     //配置rx_kotlin 和 rx_android
     api "io.reactivex:rxkotlin:$rx_koltin"
     api "io.reactivex:rxandroid:$rx_android"
-    //-------配置retrofit ------------        ext.okhttp_version= '3.10.0'
+    //-------配置retrofit ------------
     api "com.squareup.okhttp3:okhttp:$okhttp_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$converter_gson_version"//retrofit2的Json转换器(默认用Gson)
@@ -65,10 +67,10 @@ dependencies {
     api "com.trello:rxlifecycle-kotlin:$rx_lifecycle_version"
     // --------------arouter_api----------
     api "com.alibaba:arouter-api:$arouter_api_version"
-
     //----------room------
     api "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
-
-
+    //---------日志----------
+    api "com.elvishew:xlog:1.6.1"
+    api 'com.orhanobut:logger:2.2.0'
 }

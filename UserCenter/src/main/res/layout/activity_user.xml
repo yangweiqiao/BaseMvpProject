@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.usercenter.data.bean.User" />
+
+        <variable
+            name="presenter"
+            type="com.example.usercenter.ui.activity.UserActivity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/mView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="@{()->presenter.registClick(  user.username ,user.password)}"
+            android:text="注册用户" />
+
+        <Button
+            android:id="@+id/mViewDatabase"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="数据库插入操作" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试dataBinding" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{user.username}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{user.password}" />
+
+
+    </LinearLayout>
+</layout>

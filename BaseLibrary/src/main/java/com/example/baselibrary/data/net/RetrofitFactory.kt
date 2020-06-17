@@ -1,9 +1,10 @@
 package com.example.baselibrary.data.net
 
+import com.elvishew.xlog.XLog
 import com.example.baselibrary.common.BASE_URL
+import com.example.baselibrary.log.YLogUtils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,7 +36,7 @@ class RetrofitFactory private constructor() {
     private fun initClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(initLogIntercept()) //日志拦截器
-            .addInterceptor(initHeaderIntercept()) //日志拦截器
+            .addInterceptor(initHeaderIntercept()) // 拦截器
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
     }

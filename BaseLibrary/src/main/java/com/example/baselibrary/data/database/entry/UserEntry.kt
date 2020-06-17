@@ -6,7 +6,7 @@ import androidx.room.*
 /**
  * 标注的实体类
  */
-@Entity(tableName = "user"   )
+@Entity(tableName = "activity_user"   )
 class UserEntry {
     @PrimaryKey
     var id: Int = 0
