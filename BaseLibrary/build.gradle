@@ -73,4 +73,11 @@ dependencies {
     //---------日志----------
     api "com.elvishew:xlog:1.6.1"
     api 'com.orhanobut:logger:2.2.0'
+    //---------列表-----
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+
+    //---------Google 底部导航栏 --------
+    api 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
+
 }

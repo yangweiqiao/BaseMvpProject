@@ -6,6 +6,8 @@
     <application>
         <activity android:name=".ui.activity.UserActivity" />
         <activity android:name=".ui.activity.PermissionActivity" />
+        <activity android:name=".ui.activity.ListActivity" />
+        <activity android:name=".ui.activity.List2Activity" />
     </application>
 
 </manifest>

@@ -1,15 +1,11 @@
 package com.example.usercenter.ui.activity
 
 import android.os.Bundle
-import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.elvishew.xlog.XLog
 import com.example.baselibrary.data.database.entry.UserEntry
 import com.example.baselibrary.log.YLogUtils
 import com.example.baselibrary.ui.activity.BaseMvpActivity
-import com.example.provider.event.Bus
 import com.example.provider.router.RouterPath
 import com.example.usercenter.R
 import com.example.usercenter.dagger.commponent.DaggerUserComponent
@@ -18,7 +14,6 @@ import com.example.usercenter.data.bean.User
 import com.example.usercenter.databinding.ActivityUserBinding
 import com.example.usercenter.persenter.UserPresenter
 import com.example.usercenter.persenter.view.UserView
-import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_user.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.toast
