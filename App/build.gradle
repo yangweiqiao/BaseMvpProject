@@ -45,5 +45,8 @@ api project(path: ':Provider')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     //Arouter
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version" //注意版本号
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+
+
+
 }

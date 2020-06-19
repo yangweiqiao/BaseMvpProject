@@ -7,10 +7,9 @@ import com.example.baselibrary.ui.activity.BaseActivity
 import com.example.provider.router.RouterPath
 import com.example.usercenter.R
 import com.example.usercenter.adapter.ProviderMultiAdapter
-import com.example.usercenter.databinding.ActivityUserBinding
 import com.example.usercenter.entry.ProviderMultiEntity
 import kotlinx.android.synthetic.main.activity_list.*
-import java.util.ArrayList
+import java.util.*
 
 @Route(path = RouterPath.UserCenter.PATH_LIST2)
 class List2Activity : BaseActivity() {
